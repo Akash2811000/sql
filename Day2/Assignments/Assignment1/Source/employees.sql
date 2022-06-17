@@ -85,7 +85,8 @@ UPDATE employees SET email = "Not Available "  WHERE departmentid = 80 AND commi
 
 /*Write a SQL statement to change the Email column of employees table with ‘not available’ for those employees who belongs to the ‘Accouning’ department.*/
 
-update employees set email = 'not avilable'  WHERE departmentid = ( SELECT department_id FROM departments WHERE departmentname =  "Accouning");
+update employees set email = 'not avilable'  
+WHERE departmentid = ( SELECT department_id FROM departments WHERE departmentname =  "Accouning");
 
 
 /* Write a SQL statement to change salary of employee to 8000 whose ID is 105, if the existing salary is less than 5000*/
@@ -111,18 +112,76 @@ update employees set salary = CASE departmentid
 
 /* Write a SQL statement to increase the minimum and maximum salary of PU_CLERK by 2000 as well as the salary for those employees by 20% and commission by 10% */
 
-UPDATE  jobs,employees set jobs.min_salary =  (jobs.min_salary + 2000) , jobs.max_salary = 
-(jobs.max_salary + 2000) , employees.salary = employees.salary + (employees.salary *0.20) ,
-employees.commission_pct = employees.commission_pct + (employees.commission_pct  * 0.10)
-WHERE jobs.jobid = 'PU_CLERK' AND employees.jobid = 'PU_CLERK' ;
+
 
 UPDATE jobs  set min_salary =  (min_salary + 2000) , max_salary = (max_salary + 2000) WHERE jobid = 'PU_CLERK' 
 
-update employees set    salary = salary + (salary *0.20) , commission_pct   = commission_pct + (commission_pct  * 0.10) WHERE jobid = 'PU_CLERK'
+update employees set    salary = salary + (salary *0.20) , 
+commission_pct   = commission_pct + (commission_pct  * 0.10) WHERE jobid = 'PU_CLERK'
 
 
 
 
+/* Basic Select Queries: */
+
+/*Get all employee details from the Employee table*/ 
+
+SELECT * from employees
+
+
+/*Get FirstName, LastName from Employees table */
+
+SELECT firstname , lastname from employees
+
+
+/*Get FirstName from Employees table using alias name “Employee Name” */
+
+SELECT firstname  AS "Employee Name" from employees
+
+/*Get employee details from Employees table whose Employee Name is “Steven” */
+
+SELECT * from employees WHERE firstname = "steven"
+
+/* Get employee details from Employees table whose Employee Name are “Neena” and “Lex” */
+
+SELECT * from employees WHERE firstname = 'steven' OR firstname = 'Lex'
+
+
+/* Get employee details from Employees table whose Employee name are not “Neena” and “Neena” */ 
+
+SELECT * from employees WHERE NOT firstname = 'Neena'
+
+
+/* Get employee details from Employees table whose Salary between 5000 and 8000*/ 
+
+SELECT * from employees WHERE salary BETWEEN 5000 AND 8000
+
+/* Write a query to get the names (FirstName, LastName), Salary, PF of all the Employees (PF is calculated as 12% of salary). */
+
+SELECT firstname  ||  " " || lastname  AS Fullname  , salary  , (salary  + (salary  *0.12 )) AS PF From employees
+
+
+/*Get employee details from Employees table whose FirstName starts with ‘N’*/
+
+SELECT *  From employees WHERE firstname like 'N%'
+
+
+/* Write a query to get unique department ID from Employees table*/
+
+SELECT DISTINCT departmentid from employees 
+
+/* Write a query to get all employee details from the employee table order by FirstName, descending.*/
+
+SELECT * from employees ORDER by firstname COLLATE NOCASE DESC 
+
+
+/* Write a query to get the EmployeeID, names (FirstName, LastName), salary in ascending order of salary. */
+
+SELECT empid , firstname || " " || lastname as Names , salary FROM employees ORDER by salary 	ASC
+
+/*Select TOP 2 salary from employee table*/
+
+SELECT *  FROM employees ORDER by salary 	DESC LIMIT 2
 
 
 
