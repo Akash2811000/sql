@@ -1,12 +1,4 @@
-CREATE TABLE employees (
-empid INTEGER NOT NULL,
-firstname TEXT NOT NULL,
-lastname TEXT NOT NULL,
-salary NUMERIC NOT NULL,
-joindate date NOT NULL,
-department TEXT not NULL,
-PRIMARY KEY (empid AUTOINCREMENT)
-)
+
 
 CREATE TABLE "employees" (
 	"empid"	INTEGER NOT NULL,
@@ -15,10 +7,19 @@ CREATE TABLE "employees" (
 	"salary"	NUMERIC NOT NULL,
 	"joindate"	date NOT NULL,
 	"department"	TEXT NOT NULL,
-	"managerid"	TEXT,
-	FOREIGN KEY("managerid") REFERENCES "employees"("empid"),
-	PRIMARY KEY("empid" AUTOINCREMENT)
-);
+	"managerid"	INTEGER,
+	PRIMARY KEY("empid" AUTOINCREMENT),
+	FOREIGN KEY("managerid") REFERENCES "employees"("empid")
+)
+
+INSERT INTO "main"."employees" ("empid", "firstname", "lastname", "salary", "joindate", "department", "managerid") VALUES ('1', 'akash', 'gupta', '5000', '2022-05-12', 'mobile', '1');
+INSERT INTO "main"."employees" ("empid", "firstname", "lastname", "salary", "joindate", "department", "managerid") VALUES ('2', 'pavan', 'kumar', '8000', '2020-01-01', 'mobile', '1');
+INSERT INTO "main"."employees" ("empid", "firstname", "lastname", "salary", "joindate", "department", "managerid") VALUES ('3', 'mahesh', 'Rao', '18000', '2016-02-11', 'php', '4');
+INSERT INTO "main"."employees" ("empid", "firstname", "lastname", "salary", "joindate", "department", "managerid") VALUES ('4', 'neha', 'sharama', '10000', '2006-02-11', 'php', '4');
+INSERT INTO "main"."employees" ("empid", "firstname", "lastname", "salary", "joindate", "department", "managerid") VALUES ('5', 'bhuvneshavar', 'kumar', '15000', '2018-12-21', 'node', '');
+
+
+
 
 CREATE TABLE "incentive" (
 	"empid"	INTEGER,
@@ -26,6 +27,9 @@ CREATE TABLE "incentive" (
 	"incamount"	NUMERIC NOT NULL,
 	FOREIGN KEY("empid") REFERENCES "employees"("empid")
 );
+INSERT INTO "main"."incentive" ("empid", "incdate", "incamount") VALUES ('1', '2022-07-12', '2000');
+INSERT INTO "main"."incentive" ("empid", "incdate", "incamount") VALUES ('3', '2017-02-01', '5000');
+INSERT INTO "main"."incentive" ("empid", "incdate", "incamount") VALUES ('1', '2022-08-12', '4000');
 
 
 INSERT INTO employees 
@@ -61,7 +65,9 @@ A.empid = B.empid
 
 /*Select EmployeeName, ManagerName from the employee table.*/
 
-
+SELECT e.firstname as empname , 
+m.firstname as manager
+from employees e LEFT OUTER JOIN employees m on m.empid = e.managerid
 
 /*Select first_name, incentive amount from employee and incentives table 
 for all employees even if they didn’t get incentives and set incentive amount 
