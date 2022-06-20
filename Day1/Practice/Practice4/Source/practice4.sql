@@ -44,9 +44,9 @@ CREATE TABLE "employees" (
 );
 
 
-CREATE table department (
-depid INTEGER,
-depname TEXT NOT NULL,
+CREATE table departments (
+department_id INTEGER,
+departmentname TEXT NOT NULL,
 PRIMARY KEY (depid)
 )
 
